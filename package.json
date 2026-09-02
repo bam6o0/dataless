@@ -1,0 +1,43 @@
+{
+  "name": "dataless",
+  "version": "0.1.0",
+  "description": "Give every git worktree its own Postgres database, created on demand from a committed manifest. No per-branch database setup.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bam6o0/dataless.git"
+  },
+  "type": "module",
+  "bin": {
+    "dataless": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "postgres",
+    "postgresql",
+    "database",
+    "branching",
+    "worktree",
+    "development",
+    "agent"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.15.5",
+    "typescript": "^5.9.0"
+  }
+}
