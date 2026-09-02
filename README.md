@@ -10,8 +10,12 @@ copy into a fresh worktree.
 ![status](https://img.shields.io/badge/status-early-orange.svg)
 
 ```bash
-npm install -g github:bam6o0/dataless
+npm install -D dataless@github:bam6o0/dataless   # per project (recommended)
+npm install -g github:bam6o0/dataless            # or globally
 ```
+
+A project-local install keeps the version with the repository, and npm scripts find the
+binary on their own — `"dev": "dataless run next dev"` works with no global install.
 
 ## Why
 
