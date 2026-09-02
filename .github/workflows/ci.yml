@@ -16,9 +16,15 @@ jobs:
           node-version: 24.x
           cache: npm
 
-      # `npm ci` runs the prepare script, so this also checks that dist/ builds.
       - run: npm ci
 
       - run: npm run typecheck
 
       - run: npm test
+
+      # dist/ is committed so that `npm i -g github:bam6o0/dataless` needs no
+      # build step. Fail if it is stale.
+      - run: npm run build
+
+      - name: dist/ is up to date
+        run: git diff --exit-code dist
