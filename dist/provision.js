@@ -55,7 +55,7 @@ export async function openServer(config, log) {
  */
 export async function provision(client, config, database, branch, log) {
     const url = databaseUrl(config, database);
-    const env = childEnv(config, url);
+    const env = setupEnv(config, url);
     if (await databaseExists(client, database)) {
         await touch(client, database);
         if (config.setup?.on === "always")
@@ -103,6 +103,21 @@ export async function reset(client, config, database, branch, log) {
     }
     await dropDatabase(client, database, true);
     return await provision(client, config, database, branch, log);
+}
+/**
+ * The environment a setup command sees.
+ *
+ * A setup command is a database tool — migrations, a seed — and those read
+ * `DATABASE_URL` by convention, so it is always set here even when the manifest
+ * exports nothing. It is set rather than defaulted: the hook's job is to
+ * prepare *this* database, and a `DATABASE_URL` left over in the shell would
+ * otherwise send the migration somewhere else.
+ *
+ * The wrapped command still gets exactly what `export` says, so a tool like
+ * envless stays the place that decides which variable the app reads.
+ */
+function setupEnv(config, url) {
+    return { ...childEnv(config, url), DATABASE_URL: url };
 }
 function runSetup(config, env, log) {
     const setup = config.setup;

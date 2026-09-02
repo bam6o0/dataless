@@ -120,6 +120,11 @@ template, schema freshness from `setup`, and a stale template stops being a prob
 
 If the template does not exist yet, dataless says so and creates an empty database instead.
 
+A setup command always sees `DATABASE_URL`, whatever `export` says: migrations and seeds
+read that name by convention, and the hook runs outside whatever the wrapped command uses
+to name its variables. It is set rather than defaulted, so a `DATABASE_URL` left over in
+your shell cannot send the migration to another database.
+
 A setup command that fails takes the database with it: dataless drops what it created and
 reports the failure, rather than leaving your app pointed at half a database.
 

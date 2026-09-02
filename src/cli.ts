@@ -58,7 +58,8 @@ Manifest (dataless.json, found by walking up from the working directory):
   server      the server, without a database
   database    name prefix; the branch slug is appended to it
   template    database to copy, so a new branch starts with data (optional)
-  setup       command to run after creating, "on": "create" or "always" (optional)
+  setup       command to run after creating, "on": "create" or "always" (optional).
+              It always sees DATABASE_URL, whatever "export" says
   params      query parameters for the URL, e.g. a connection limit (optional)
   export      extra variable names to receive the URL (optional)
   ensure      command that starts the server, used if it is not up (optional)
